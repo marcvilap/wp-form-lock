@@ -594,7 +594,7 @@ class Admin {
 						'week_start'  => esc_html__( 'till the end of the week', 'wpforms-form-locker' ),
 						'month_start' => esc_html__( 'till the end of the month', 'wpforms-form-locker' ),
 						'year_start'  => esc_html__( 'till the end of the year', 'wpforms-form-locker' ),
-						'last_thursday'  => esc_html__( 'till the last thursday of the month', 'wpforms-form-locker' ),						
+					   'last_thursday'  => esc_html__( 'till the last thursday of the month', 'wpforms-form-locker' ),						
 						'day'         => esc_html__( 'per 24 hours', 'wpforms-form-locker' ),
 						'week'        => esc_html__( 'per 7 days', 'wpforms-form-locker' ),
 						'month'       => esc_html__( 'per ~30 days', 'wpforms-form-locker' ),

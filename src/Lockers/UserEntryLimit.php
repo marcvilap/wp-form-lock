@@ -39,6 +39,48 @@ class UserEntryLimit extends Locker {
 	 *
 	 * @return array
 	 */
+
+	 public function getLastPasedThursday(){
+
+		
+			
+		$hoy= date("Y-m-d");
+
+		$ultimo_dia_mes_actual = date("Y-m-t");
+		$fecha = strtotime($ultimo_dia_mes_actual);
+		
+		while (date("D", $fecha) != "Thu") {
+			$fecha = strtotime("-1 day", $fecha);
+		}
+		$ultimo_jueves_mes_actual =  date("Y-m-d", $fecha);
+				
+		
+		
+		$ultimo_dia_mes_anterior = date("Y-m-t", strtotime("-1 month"));
+		$fecha = strtotime($ultimo_dia_mes_anterior);
+		
+		while (date("D", $fecha) != "Thu") {
+			$fecha = strtotime("-1 day", $fecha);
+		}
+		$ultimo_jueves_mes_anterior =  date("Y-m-d", $fecha);
+		
+		$fecha_comparar_con_hoy = ($hoy < $ultimo_jueves_mes_actual) ? $ultimo_jueves_mes_anterior : $ultimo_jueves_mes_actual;
+		
+		
+		
+		$hoy_en_segundos = strtotime($hoy);
+		$compararensecs = strtotime($fecha_comparar_con_hoy);
+			
+			// Hacemos las operaciones para calcular los dias entre las dos fechas y mostramos el resultado
+			$dias = ($hoy_en_segundos - $compararensecs) / 86400;
+			 
+		
+		return $dias;
+		
+		}
+
+
+
 	public function submit_form( $errors, $form_data ) {
 
 		$this->set_form_data( $form_data );
@@ -303,8 +345,12 @@ class UserEntryLimit extends Locker {
 					break;
 					
 				case 'last_thursday':
-					// If date is higher than last thursday in month.
-					$where[] = 'AND ' . $table_name . '.date > ' . $last_thursday;
+					
+					
+					$offset_days = $this->getLastPasedThursday();
+	
+					// If date is higher than last thursday in month. 
+					$where[] = 'AND ' . $table_name . '.date > ' . $now_sql . ' - INTERVAL '.$offset_days .' - 1 DAY';
 					break;
 				
 
